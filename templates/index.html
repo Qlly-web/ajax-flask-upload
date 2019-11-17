@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<input type="file" name="f" id="f" />
+			<button id="upload-btn" onclick="upload()">上传</button>
+		</div>
+		<script>
+			function upload() {
+				const f = document.querySelector('#f');
+				console.dir(f);
+				const fdata = new FormData();
+				fdata.append('file', f.files[0]);
+				$post('/ufile', fdata)
+			}
+
+			function $post(url, data) {
+				const xhr = new XMLHttpRequest();
+				xhr.open('post', url, true);
+				xhr.send(data);
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						console.log(xhr.responseText);
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
